@@ -6,7 +6,8 @@ module MongoidAutoIncrement
   module ClassMethods
     def auto_increment(name, options={})
       field name, :type => Integer
-      seq_name = "#{self.name.downcase}_#{name}"
+      #seq_name = "#{self.name.downcase}_#{name}"
+      seq_name = "#{self.name.downcase}"
       @@incrementor = MongoidAutoIncrement::Incrementor.new unless defined? @@incrementor
 
       before_create { self.send("#{name}=", @@incrementor.inc(seq_name, options)) }

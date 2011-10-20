@@ -12,14 +12,17 @@ module MongoidAutoIncrement
        def inc
         opts = {
           "query"  => query,
-          "update" => {"$inc" => { "number" => 1 }},
+          #"update" => {"$inc" => { "number" => 1 }},
+          "update" => {"$inc" => { "val" => 1 }},
           "new"    => true # return the modified document
         }
-        collection.find_and_modify(opts)["number"]
+        #collection.find_and_modify(opts)["number"]
+        collection.find_and_modify(opts)["val"]
        end
 
       def current
-        collection.find_one(query)["number"]
+        #collection.find_one(query)["number"]
+        collection.find_one(query)["val"]
       end
 
       private
@@ -29,7 +32,8 @@ module MongoidAutoIncrement
       end
 
       def create(number)
-        collection.insert(query.merge({ "number" => number }))
+        #collection.insert(query.merge({ "number" => number }))
+        collection.insert(query.merge({ "val" => number }))
       end
 
       def collection
@@ -37,7 +41,8 @@ module MongoidAutoIncrement
       end
 
       def query
-        { "seq_name" => @sequence }
+        #{ "seq_name" => @sequence }
+        { "name" => @sequence }
       end
     end
 
