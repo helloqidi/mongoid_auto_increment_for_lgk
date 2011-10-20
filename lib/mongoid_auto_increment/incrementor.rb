@@ -51,7 +51,8 @@ module MongoidAutoIncrement
 
     def inc(sequence, options)
       options ||= {}
-      collection = options[:collection] || "sequences"
+      #collection = options[:collection] || "sequences"
+      collection = options[:collection] || "sequence"
       seed = options[:seed].to_i
       Sequence.new(sequence, collection, seed).inc
     end
