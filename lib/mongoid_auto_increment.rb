@@ -10,9 +10,7 @@ module MongoidAutoIncrement
       seq_name = "#{self.name.downcase}"
       @@incrementor = MongoidAutoIncrement::Incrementor.new unless defined? @@incrementor
 
-      before_create do
-        #if #{name} is not Integer instance,then to replace it with Integer.  
-        self.send("#{name}=", @@incrementor.inc(seq_name, options)) unless self.send("#{name}").is_a?(Integer)
+      before_create { self.send("#{name}=", @@incrementor.inc(seq_name, options)) }
       end
     end
   end
